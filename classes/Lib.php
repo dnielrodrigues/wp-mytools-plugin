@@ -25,6 +25,21 @@
 		}
 
 		/*
+		 * Incrementa a classe da página atual
+		 */
+		public static function getPageClass(){
+			$class = 'page-' . Lib::getSlug();
+			if ( is_home() ) {$class .= ' home';}
+			if ( is_page() ) {$class .= ' page inner';}
+			if ( is_404() ) {$class .= ' page-404 inner';}
+			if ( is_single() ) {$class .= ' single inner';}
+			if ( is_singular() ) {$class .= ' singular inner';}
+			if ( is_archive() ) {$class .= ' archive inner';}
+			
+			return $class;
+		}
+
+		/*
 		 * retorna id da pagina pela slug
 		 */
 		public static function getId($slug){
