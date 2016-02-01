@@ -181,6 +181,16 @@
             echo '</pre><br/><br/><br/>';
 		}
 
+		/*
+		 * testa se arquivo existe
+		 */
+		public static function testFile($file){
+	        if (!file_exists($file)) {
+	            return false;
+	        }
+			return true;
+	    }
+
 		
 	}
 
