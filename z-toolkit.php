@@ -1,6 +1,6 @@
 <?php 
 /*
-Plugin Name: My Tools Plugin
+Plugin Name: Z ToolKit
 Plugin URI:  http://www.danielrodrigues.net.br
 Description: Meus métodos favoritos para usar com Wordpress
 Author: DanielRodrigues

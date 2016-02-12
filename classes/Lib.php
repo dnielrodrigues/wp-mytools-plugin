@@ -16,7 +16,7 @@
 				$slug = get_post( $post )->post_name;
 				return $slug;
 			}elseif($id == 0) {
-				die("ERRO: Id do post não pode ser igual a 0 / Lib.php (linha 18).");
+				die("ERRO: Id do post não pode ser igual a 0 / em Lib.php (linha 18).");
 				//OBS: melhorar o tratamento deste erro...
 			}else{
 				$post = get_post($id);
