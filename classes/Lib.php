@@ -48,6 +48,14 @@
 		}
 
 		/*
+		 * retorna o titulo do custom post
+		 */
+		public static function getCustomPostTitle($slug){
+			$type = get_post_type_object($slug);
+			return $type->labels->menu_name;
+		}
+
+		/*
 		 * pega todas as paginas filhas da pagina com a slug passada
 		 */
 		public static function getTheChildPages($slug){
@@ -191,6 +199,34 @@
 			return true;
 	    }
 
+	    /*
+	     * Validar o Google Recaptcha
+	     */
+	    public static function captchaValidate($privatekey){
+	    	include "/wp-content/plugins/z-toolkit/vendor/google-recaptcha/recaptchalib.php";
+		    $response = null;
+		    $reCaptcha = new ReCaptcha($privatekey);
+
+		    /*
+		     * se submetido, verifica o formulario
+		     */
+		    if ( isset($_POST["data"]["captcha"] ) ) {
+		        //valida o captcha
+		        $response = $reCaptcha->verifyResponse(
+		            $_SERVER["REMOTE_ADDR"],
+		            $_POST["data"]["captcha"]
+		        );
+		        // retorna resultado
+		        if ($response != null && $response->success) {
+		            return true;
+		        }else{
+		            return false;
+		        }
+		    }else{
+		    	// retorna resultado
+		        return false;
+		    }
+	    }
 		
 	}
 
