@@ -56,6 +56,37 @@
 		}
 
 		/*
+	     * Resumo de todos os posts de um unico custom post
+	     */
+	    public static function getResumePostsByType($postType){
+
+	        // filtro de posts
+	        $args = array('post_type' => $postType, 'posts_per_page' => -1);
+	        $posts = get_posts($args);
+
+	        // vetor alvo
+	        $articles = array();
+
+	        // salva todos os produtos no vetor alvo
+	        foreach($posts as $post): setup_postdata($post);
+	            $id = $post->ID;
+	            $articles[] = array(
+	                'title' => get_the_title($id),
+	                'slug' => $post->post_name,
+	                'img' => wp_get_attachment_url( get_post_thumbnail_id($id) ),
+	                // 'excerpt' => get_the_excerpt() ,
+	                'excerpt' => $post->post_excerpt ,
+	                // 'excerpt' => substr( get_the_excerpt() , 0, 50 ),
+	                'link' => get_permalink( $id ),
+	                'content' => get_the_content()
+	            );
+	        endforeach;
+
+	        // retorna vetor
+	        return $articles;
+	    }
+
+		/*
 		 * pega todas as paginas filhas da pagina com a slug passada
 		 */
 		public static function getTheChildPages($slug){
