@@ -75,6 +75,25 @@
 		}
 
 		/*
+		 * pega todas os posts filhos do post com a slug passada
+		 */
+		public static function getTheAttachments($slug){
+			$args = array('post_type' => 'attachment', 'posts_per_page' => -1);
+	        $pages = get_posts($args);
+			foreach ($pages as $page) {
+	            $parentId = $page->post_parent;
+	            if ($parentId != 0) {
+	                $parentSlug = Lib::getSlug($parentId);
+	                if ($parentSlug == $slug) {
+	                    $childPages[] = $page;
+	                }
+	            }
+	        }
+
+	        return $childPages;
+		}
+
+		/*
 		 * Forma simples de criar novos Custom Post Types
 		 	$args = array(
 				'slug' => "string",
