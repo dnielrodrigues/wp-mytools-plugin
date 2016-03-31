@@ -40,6 +40,24 @@
 		}
 
 		/*
+		 * Disparo de Email
+		 * $data = array(
+		 *		//
+		 *		//
+		 *		//
+		 *		//
+		 * );
+		 */
+		function sendContactMail($data){
+			//phpMailer
+			require_once ('./././wp-includes/class-phpmailer.php');
+			require_once ('./././wp-includes/class-smtp.php');
+
+			//disparo
+			include "../includes/send-mail.php";
+		}
+
+		/*
 		 * retorna id da pagina pela slug
 		 */
 		public static function getId($slug){
