@@ -231,6 +231,20 @@
 	    }
 
 	    /*
+		 * Retornar mediaPosts em uma única galeria do post
+		 */
+		public static function getTheImagesGallery($post){
+			$targetString = $post->post_content;
+			$targetString = str_replace('[gallery ids="', "", $targetString);
+			$targetString = str_replace('"]', "", $targetString);
+			$idList = explode(",", $targetString);
+			foreach ($idList as $id) {
+				$imgs[] = get_post($id);
+			};
+			return $imgs;
+	    }
+
+	    /*
 	     * Validar o Google Recaptcha
 	     */
 	    public static function captchaValidate($privatekey){
