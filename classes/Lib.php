@@ -40,6 +40,24 @@
 		}
 
 		/*
+		 * Disparo de Email
+		 * $data = array(
+		 *		//
+		 *		//
+		 *		//
+		 *		//
+		 * );
+		 */
+		function sendContactMail($data){
+			//phpMailer
+			require_once ('./././wp-includes/class-phpmailer.php');
+			require_once ('./././wp-includes/class-smtp.php');
+
+			//disparo
+			include "../includes/send-mail.php";
+		}
+
+		/*
 		 * retorna id da pagina pela slug
 		 */
 		public static function getId($slug){
@@ -91,6 +109,25 @@
 		 */
 		public static function getTheChildPages($slug){
 			$args = array('post_type' => 'page', 'posts_per_page' => -1);
+	        $pages = get_posts($args);
+			foreach ($pages as $page) {
+	            $parentId = $page->post_parent;
+	            if ($parentId != 0) {
+	                $parentSlug = Lib::getSlug($parentId);
+	                if ($parentSlug == $slug) {
+	                    $childPages[] = $page;
+	                }
+	            }
+	        }
+
+	        return $childPages;
+		}
+
+		/*
+		 * pega todas os posts filhos do post com a slug passada
+		 */
+		public static function getTheAttachments($slug){
+			$args = array('post_type' => 'attachment', 'posts_per_page' => -1);
 	        $pages = get_posts($args);
 			foreach ($pages as $page) {
 	            $parentId = $page->post_parent;
