@@ -48,6 +48,76 @@
 		 *		//
 		 * );
 		 */
+		function sendMail($data){
+			//phpMailer
+			require_once ('./././wp-includes/class-phpmailer.php');
+			require_once ('./././wp-includes/class-smtp.php');
+
+			//dados
+			$name       = $data["name"];
+			$mail       = $data["mail"];
+			$subject    = $data["subject"];
+			$content    = $data["message"];
+			$host 		= $data["host"]; // servidor do email
+			$port 		= $data["port"]; // porta do email
+			$secure 	= $data["secure"]; // Set the encryption system to use - ssl (deprecated) or tls // geralmente = 'tls'
+			$user 		= $data["user"]; //Username to use for SMTP authentication - use full email address for gmail
+			$pass 		= $data["pass"]; //Password to use for SMTP authentication
+			$fromMail 	= $data["fromMail"]; //Set who the message is to be sent from
+			$fromDesc 	= $data["fromDesc"]; //Set who the message is to be sent from
+			$replyMail 	= $data["replyMail"]; //Set an alternative reply-to address
+			$replyDesc 	= $data["replyDesc"]; //Set an alternative reply-to address
+			$sendToMail = $data["sendToMail"]; //Set who the message is to be sent to
+
+			//Create a new PHPMailer instance
+		    $mail = new PHPMailer;
+
+		    //Tell PHPMailer to use SMTP
+		    $mail->isSMTP();
+		    
+		    //Enable SMTP debugging
+		    // 0 = off (for production use)
+		    // 1 = client messages
+		    // 2 = client and server messages
+		    $mail->SMTPDebug = 0;
+		    $mail->Debugoutput = 'html';
+		    $mail->Host = $host;
+		    $mail->Port = $port;
+		    $mail->SMTPSecure = $secure;
+		    $mail->SMTPAuth = true;
+		    $mail->Username = $user;
+		    $mail->Password = $pass;
+		    $mail->setFrom( $fromMail , $fromDesc );
+		    $mail->addReplyTo( $replyMail , $replyDesc );		    
+		    $mail->addAddress( $sendToMail , $sendToDesc);
+		    $mail->Subject = $subject;
+
+		    //Read an HTML message body from an external file, convert referenced images to embedded,
+		    //convert HTML into a basic plain-text alternative body
+		    //$mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
+		    $mail->msgHTML( $content );
+		    
+		    //Replace the plain text body with one created manually
+		    $mail->Body = $content;
+		    $mail->AltBody = $content;
+		    
+		    //send the message, check for errors
+		    if (!$mail->send()) {
+		        return $mail->ErrorInfo;
+		    } else {
+		        return true;		    }
+		}
+
+
+		/*
+		 * Disparo de Email
+		 * $data = array(
+		 *		//
+		 *		//
+		 *		//
+		 *		//
+		 * );
+		 */
 		function sendContactMail($data){
 			//phpMailer
 			require_once ('./././wp-includes/class-phpmailer.php');
