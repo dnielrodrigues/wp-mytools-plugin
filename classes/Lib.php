@@ -150,13 +150,13 @@
 			 * Dados
 			 */
 			$post = $args["post"];
-			if ($args["maxFinalChar"]) {
+			if ( isset($args["maxFinalChar"]) ) {
 				$maxFinalChar = $args["maxFinalChar"];
 			}
-			if ($args["maxChar"]) {
+			if ( isset($args["maxChar"]) ) {
 				$maxChar = $args["maxChar"];
 			}
-			if ($args["limitString"]) {
+			if ( isset($args["limitString"]) ) {
 				$limitString = $args["limitString"];
 			}
 
