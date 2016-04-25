@@ -77,7 +77,7 @@
     /*
      * Trata limite de caracteres
      */
-    if ( $maxChar != null ) {
+    if ( isset($maxChar) && $maxChar != null ) {
         foreach ($b as $i => $value) {
             if ( strlen ( $value['txt'] ) > $maxChar ) {
                 $b[$i]['txt'] = substr ( $value['txt'], 0, $maxChar ) . $limitString;
