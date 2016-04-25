@@ -163,7 +163,7 @@
 			/*
 			 * Gera o array
 			 */
-			include "../includes/breadcrumb.php";
+			include "./includes/breadcrumb.php";
 			// include "/wp-content/plugins/z-toolkit/includes/breadcrumb.php";
 
 			/*
