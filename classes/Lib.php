@@ -66,11 +66,52 @@
 		}
 
 		/*
+		 * retorna id da pagina pela slug
+		 * @args = array{
+		 *		"post" => post atual ($post) -> correcao do escopo do metodo
+		 *		"maxFinalChar" => máximo de carcateres no ultimo item
+		 *		"maxChar" => máximo de carcateres em todos os itens
+		 *		"limitString" => texto a ser usado no final dos textos limitados
+		 * }
+		 */
+		public static function getBreadcrumb($args){
+
+			/*
+			 * Dados
+			 */
+			$post = $args["post"];
+			$maxFinalChar = $args["maxFinalChar"];
+			$maxChar = $args["maxChar"];
+			$limitString = $args["limitString"];
+
+			/*
+			 * Gera o array
+			 */
+			include "/wp-content/plugins/z-toolkit/includes/breadcrumb.php";
+
+			/*
+			 * $b[] = array {
+			 *		'txt' => texto do item,
+			 *		'link' => link do item,	
+			 * }
+			 */
+			return $b;
+		}
+
+		/*
 		 * retorna o titulo do custom post
 		 */
 		public static function getCustomPostTitle($slug){
 			$type = get_post_type_object($slug);
 			return $type->labels->menu_name;
+		}
+
+		/*
+		 * retorna dados do custom post
+		 */
+		public static function getPostType($slug){
+			$type = get_post_type_object($slug);
+			return $type->labels;
 		}
 
 		/*
