@@ -150,9 +150,15 @@
 			 * Dados
 			 */
 			$post = $args["post"];
-			$maxFinalChar = $args["maxFinalChar"];
-			$maxChar = $args["maxChar"];
-			$limitString = $args["limitString"];
+			if ($args["maxFinalChar"]) {
+				$maxFinalChar = $args["maxFinalChar"];
+			}
+			if ($args["maxChar"]) {
+				$maxChar = $args["maxChar"];
+			}
+			if ($args["limitString"]) {
+				$limitString = $args["limitString"];
+			}
 
 			/*
 			 * Gera o array
