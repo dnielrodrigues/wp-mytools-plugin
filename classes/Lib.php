@@ -400,6 +400,17 @@
 	    }
 
 	    /*
+		 * Retornar mediaPosts em uma única galeria do post
+		 */
+		public static function limitCharacter($str,$limit,$symbol){
+			if ( strlen ($str) > $limit ) {
+                return substr ( $str, 0, $limit ) . $symbol;
+            }else{
+            	return $str;
+            }
+	    }
+
+	    /*
 	     * Validar o Google Recaptcha
 	     */
 	    public static function captchaValidate($privatekey){
