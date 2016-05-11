@@ -414,7 +414,8 @@
 	     * Validar o Google Recaptcha
 	     */
 	    public static function captchaValidate($privatekey){
-	    	include "/wp-content/plugins/z-toolkit/vendor/google-recaptcha/recaptchalib.php";
+	    	// include "/wp-content/plugins/z-toolkit/vendor/google-recaptcha/recaptchalib.php";
+	    	include __DIR__."/../vendor/google-recaptcha/recaptchalib.php";
 		    $response = null;
 		    $reCaptcha = new ReCaptcha($privatekey);
 
