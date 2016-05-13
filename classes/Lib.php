@@ -142,11 +142,59 @@
 		}
 
 		/*
+		 * retorna id da pagina pela slug
+		 * @args = array{
+		 *		"post" => post atual ($post) -> correcao do escopo do metodo
+		 *		"maxFinalChar" => máximo de carcateres no ultimo item
+		 *		"maxChar" => máximo de carcateres em todos os itens
+		 *		"limitString" => texto a ser usado no final dos textos limitados
+		 * }
+		 */
+		public static function getBreadcrumb($args){
+
+			/*
+			 * Dados
+			 */
+			$post = $args["post"];
+			if ( isset($args["maxFinalChar"]) ) {
+				$maxFinalChar = $args["maxFinalChar"];
+			}
+			if ( isset($args["maxChar"]) ) {
+				$maxChar = $args["maxChar"];
+			}
+			if ( isset($args["limitString"]) ) {
+				$limitString = $args["limitString"];
+			}
+
+			/*
+			 * Gera o array
+			 */
+			include __DIR__."/../includes/breadcrumb.php";
+			// include "/wp-content/plugins/z-toolkit/includes/breadcrumb.php";
+
+			/*
+			 * $b[] = array {
+			 *		'txt' => texto do item,
+			 *		'link' => link do item,	
+			 * }
+			 */
+			return $b;
+		}
+
+		/*
 		 * retorna o titulo do custom post
 		 */
 		public static function getCustomPostTitle($slug){
 			$type = get_post_type_object($slug);
 			return $type->labels->menu_name;
+		}
+
+		/*
+		 * retorna dados do custom post
+		 */
+		public static function getPostType($slug){
+			$type = get_post_type_object($slug);
+			return $type->labels;
 		}
 
 		/*
@@ -358,10 +406,22 @@
 	    }
 
 	    /*
+		 * Retornar mediaPosts em uma única galeria do post
+		 */
+		public static function limitCharacter($str,$limit,$symbol){
+			if ( strlen ($str) > $limit ) {
+                return substr ( $str, 0, $limit ) . $symbol;
+            }else{
+            	return $str;
+            }
+	    }
+
+	    /*
 	     * Validar o Google Recaptcha
 	     */
 	    public static function captchaValidate($privatekey){
-	    	include "/wp-content/plugins/z-toolkit/vendor/google-recaptcha/recaptchalib.php";
+	    	// include "/wp-content/plugins/z-toolkit/vendor/google-recaptcha/recaptchalib.php";
+	    	include __DIR__."/../vendor/google-recaptcha/recaptchalib.php";
 		    $response = null;
 		    $reCaptcha = new ReCaptcha($privatekey);
 
