@@ -54,10 +54,11 @@
 			require_once ('./././wp-includes/class-smtp.php');
 
 			//dados
+			$debug      = $data["debug"]; // debug mode
 			$name       = $data["name"];
 			$mail       = $data["mail"];
 			$subject    = $data["subject"];
-			$content    = $data["message"];
+			$content    = $data["content"];
 			$host 		= $data["host"]; // servidor do email
 			$port 		= $data["port"]; // porta do email
 			$secure 	= $data["secure"]; // Set the encryption system to use - ssl (deprecated) or tls // geralmente = 'tls'
@@ -79,7 +80,11 @@
 		    // 0 = off (for production use)
 		    // 1 = client messages
 		    // 2 = client and server messages
-		    $mail->SMTPDebug = 0;
+		    if ($debug == true) {
+		    	$mail->SMTPDebug = 2;
+		    } else {
+		    	$mail->SMTPDebug = 0;
+		    }
 		    $mail->Debugoutput = 'html';
 		    $mail->Host = $host;
 		    $mail->Port = $port;
@@ -105,7 +110,8 @@
 		    if (!$mail->send()) {
 		        return $mail->ErrorInfo;
 		    } else {
-		        return true;		    }
+		        return true;
+		    }
 		}
 
 
